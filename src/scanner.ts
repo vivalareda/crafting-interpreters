@@ -1,5 +1,5 @@
 import { Token, TokenType } from "./token";
-import { Reda } from "./index.ts";
+import { Reda } from "./reda.ts";
 
 export class Scanner {
   private source: string;
@@ -208,7 +208,7 @@ export class Scanner {
   }
 
   private isAlpha(c: string): boolean {
-    return (c >= "a" && c <= "z") || (c >= "A" && c <= "Z") || c == "=";
+    return (c >= "a" && c <= "z") || (c >= "A" && c <= "Z") || c == "_";
   }
 
   private isAlphaNumeric(c:string): boolean {
