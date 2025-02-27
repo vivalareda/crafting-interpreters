@@ -12,10 +12,10 @@ export enum TokenType {
 export class Token {
   type: TokenType;
   lexeme: string;
-  literal: Object;
+  literal: string | number | boolean | null;
   line: number;
 
-  constructor(token: TokenType, lexeme: string, literal: Object, line: number) {
+  constructor(token: TokenType, lexeme: string, literal: string | number | boolean | null, line: number) {
     this.type = token;
     this.lexeme = lexeme;
     this.literal = literal;

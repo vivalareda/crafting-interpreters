@@ -12,11 +12,15 @@ export interface ExprVisitor<R> {
 }
 
 export class BinaryExpr implements Expr {
-  constructor(
-    public left: Expr,
-    public operator: Token,
-    public right: Expr
-  ) {}
+  left: Expr;
+  operator: Token;
+  right: Expr;
+
+  constructor(left: Expr, operator: Token, right: Expr) {
+    this.left = left;
+    this.operator = operator;
+    this.right = right;
+  }
 
   accept<R>(visitor: ExprVisitor<R>): R {
     return visitor.visitBinaryExpr(this);
@@ -24,7 +28,11 @@ export class BinaryExpr implements Expr {
 }
 
 export class GroupingExpr implements Expr {
-  constructor(public expression: Expr) {}
+  expression: Expr;
+
+  constructor(expression: Expr) {
+    this.expression = expression;
+  }
 
   accept<R>(visitor: ExprVisitor<R>): R {
     return visitor.visitGroupingExpr(this);
@@ -32,7 +40,11 @@ export class GroupingExpr implements Expr {
 }
 
 export class LiteralExpr implements Expr {
-  constructor(public value: any) {}
+  value: true | false | null | number | string;
+
+  constructor(value: true | false | null | number | string) {
+    this.value = value;
+  }
 
   accept<R>(visitor: ExprVisitor<R>): R {
     return visitor.visitLiteralExpr(this);
@@ -40,10 +52,13 @@ export class LiteralExpr implements Expr {
 }
 
 export class UnaryExpr implements Expr {
-  constructor(
-    public operator: Token,
-    public right: Expr
-  ) {}
+  operator: Token;
+  right: Expr;
+
+  constructor(operator: Token, right: Expr) {
+    this.operator = operator;
+    this.right = right;
+  }
 
   accept<R>(visitor: ExprVisitor<R>): R {
     return visitor.visitUnaryExpr(this);

@@ -1,20 +1,35 @@
-import type { Expr } from "./expr";
-import { AstPrinter } from "./ast-printer";
-import { Token, TokenType } from "./token";
+import { Token, TokenType } from './token';
+import { Scanner } from './scanner';
+import { Parser } from './parser';
+import { AstPrinter } from './ast-printer';
 
-const expression: Expr = {
-  type: "Binary",
-  left: {
-    type: "Unary",
-    operator: { lexeme: "-", type: TokenType.MINUS, literal: null, line: 1 } as Token,
-    right: { type: "Literal", value: 123 },
-  },
-  operator: { lexeme: "*", type: TokenType.STAR, literal: null, line: 1 } as Token,
-  right: {
-    type: "Grouping",
-    expression: { type: "Literal", value: 45.67 },
-  },
-};
+function parse(source: string): void {
+  console.log("Source:", source);
+  
+  // Scan tokens
+  const scanner = new Scanner(source);
+  const tokens = scanner.scanTokens();
+  
+  console.log("Tokens:", tokens);
+  
+  // Parse tokens
+  const parser = new Parser(tokens);
+  const expression = parser.parse(); // You'll need to add this method
+  
+  if (expression) {
+    // Print the AST
+    const printer = new AstPrinter();
+    console.log("AST:", printer.print(expression));
+  } else {
+    console.log("Error: Failed to parse expression");
+  }
+  
+  console.log("----------------------------");
+}
 
-const printer = new AstPrinter();
-console.log(printer.print(expression));
+// Test with various expressions
+parse("1 + 2");
+parse("1 + 2 * 3");
+parse("-123 * (45.67)");
+parse("!true == false");
+parse("1 > 2 == 3 < 4");

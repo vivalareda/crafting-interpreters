@@ -34,19 +34,3 @@ export class AstPrinter implements ExprVisitor<string> {
   }
 }
 
-const expression: Expr = new BinaryExpr(
-  new UnaryExpr(
-    { type: TokenType.MINUS, lexeme: "-", literal: null, line: 1 },
-    new LiteralExpr(123)
-  ),
-  { type: TokenType.STAR, lexeme: "*", literal: null, line: 1 },
-  new GroupingExpr(
-    new LiteralExpr(45.67)
-  )
-);
-
-const printer = new AstPrinter();
-const result = printer.print(expression);
-
-console.log(result);
-
